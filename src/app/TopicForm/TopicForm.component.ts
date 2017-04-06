@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Topic } from "app/Models/Topic";
 import { Post } from "app/Models/Post";
 import { TopicService } from "app/Services/Topic.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -15,7 +16,7 @@ export class TopicFormComponent implements OnInit {
 
   post= new Post();
 
-  constructor(private topicService:TopicService) { }
+  constructor(private topicService:TopicService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -24,7 +25,7 @@ export class TopicFormComponent implements OnInit {
 
   }
   onSubmit(){
-        console.log({topic:this.topic,post:this.post})
+       
         if (this.isValid){
 
           this.topic.date_posted= new Date();
@@ -36,8 +37,11 @@ export class TopicFormComponent implements OnInit {
             token:localStorage.getItem("id_token")
           }
           this.topicService.createTopic(data).subscribe((res)=>{
-
-
+            console.log(res)
+            //var body= res.json()
+            if(res.insertId){
+              this.router.navigate(["/topic"],{ queryParams: {id:res.insertId}})
+            }
           })
         }
   }

@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let topic of topics">
-                        <td><a [routerLink]="['topic']" [queryParams]="{ id: topic.id }">{{topic.title}}</a></td>
+                        <td><a [routerLink]="['/topic']" [queryParams]="{ id: topic.id }">{{topic.title}}</a></td>
                         <td>{{topic.date_posted}}</td>
                         <td>{{topic.id}}</td>
                     </tr>

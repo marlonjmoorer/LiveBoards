@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from "app/Models/User";
 import { UserManagmentService } from "app/Services/UserManagment.service";
 import { tokenNotExpired } from 'angular2-jwt';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-userform',
@@ -10,8 +12,7 @@ import { tokenNotExpired } from 'angular2-jwt';
   //outputs:["notifyLogin"]
 })
 export class UserFormComponent implements OnInit {
-  @Output() notifyLogin: EventEmitter<boolean> = new EventEmitter();
-  constructor(private userService:UserManagmentService) {
+  constructor(private userService:UserManagmentService,private router:Router) {
       
    }
 
@@ -20,6 +21,9 @@ export class UserFormComponent implements OnInit {
   
 
   ngOnInit() {
+    if(this.userService.isLogedIn){
+      this.router.navigate(["/"])
+    }
 
   }
   isValid(){
@@ -35,12 +39,11 @@ export class UserFormComponent implements OnInit {
          
          if(!res.success){
            this.message=res.message
-           
          }else{
-           this.notifyLogin.next(res.success)
+          this.router.navigate(["/"])
+           console.log("redirect")
            this.model.username=''
-           this.model.password=''
-          
+           this.model.password='' 
          }
       })
     }

@@ -15,12 +15,7 @@ export class AppComponent implements OnInit  {
       
    }
    ngOnInit() {
-      this.subscription= this.userService.$logedIn.subscribe((res)=>{
-        console.log("subed "+res)
-      })
-   }
-   
-   onLogin(event:boolean){
-      console.log('event')
+      
+      
    }
 }

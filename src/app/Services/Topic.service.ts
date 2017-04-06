@@ -16,7 +16,6 @@ export class TopicService {
                 .map((response:Response)=>{
                     let body=response.json()
                     var topics:Topic[]= new Array<Topic>();
-                    console.log(body)
                     for(let item of body){
                         topics.push(new Topic(
                             item.id,
@@ -38,18 +37,20 @@ export class TopicService {
         return this.http.get(`/api/getTopic/${id}`)
                 .map((response:Response)=>{
                     let body=response.json()
-                   
-                    console.log(body)
-                     
+                    console.log(body);
+                    for (let p in body.post){
+                       // console.log(p)
+
+                    }
                     return body
                 })
     }
 
 
     createTopic(data){
-        console.log(data)
         return this.http.post("/api/createTopic",data).map((res)=>{
-                return res;
+                let body=res.json()
+                return body;
         })
     }
 

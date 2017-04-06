@@ -20,9 +20,4 @@ export class TopicListComponent implements OnInit {
     
   }
   
-
-  
-
-
-
 }

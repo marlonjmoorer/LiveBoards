@@ -12,6 +12,7 @@ export const routes: Routes= [
         path:"topic",
         component:TopicComponent
       },
+      
       {
         path:"login",
         component:UserFormComponent

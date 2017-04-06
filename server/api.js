@@ -1214,7 +1214,7 @@ router.get('/getTopic/:id', (req, res) => {
       let topic=results[0]    
         conn.query("select * from post where topic_id = ?",[id],(error,posts)=>{
           if(error) throw error;
-          res.json({topic,posts})
+          res.json({topic:topic,posts:posts})
         })
       })
 });
@@ -1235,8 +1235,12 @@ router.post("/createTopic",(req,res)=>{
       var params= [user.id,topic.title,new Date().toMysqlFormat()]
       conn.query("insert into topic (created_by,title,create_date) values(?,?,?)",params,(err,result)=>{
         if(err)throw err
-
-        res.json(result)
+        conn.query("insert into post (created_by,created,body,topic_id) values(?,?,?,?)",[user.id,new Date().toMysqlFormat(),post.body,result.insertId],(error,row)=>{
+            if(err)throw err
+            
+            res.json(result)
+        })
+        
       })
       
 })
